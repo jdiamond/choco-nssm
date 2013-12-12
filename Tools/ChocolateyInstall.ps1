@@ -1,5 +1,5 @@
 $packageName = 'nssm'
-$version = '2.16'
+$version = '2.21.1'
 $url = "http://nssm.cc/download/nssm-$version.zip"
 
 $toolsPath = (Split-Path -Parent $MyInvocation.MyCommand.Definition)

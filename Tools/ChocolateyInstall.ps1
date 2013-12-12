@@ -2,14 +2,14 @@ $packageName = 'nssm'
 $version = '2.16'
 $url = "http://nssm.cc/download/nssm-$version.zip"
 
-$toolsPath = (Split-Path -parent $MyInvocation.MyCommand.Definition)
+$toolsPath = (Split-Path -Parent $MyInvocation.MyCommand.Definition)
 
-$is64bit = (Get-WmiObject Win32_Processor).AddressWidth -eq 64
+Install-ChocolateyZipPackage $packageName $url "$toolsPath"
 
-$specificFolder = 'win32'
+$folderToIgnore = 'win32'
 
-if ($is64bit) {
-    $specificFolder = 'win64'
+if (Get-ProcessorBits 32) {
+    $folderToIgnore = 'win64'
 }
 
-Install-ChocolateyZipPackage $packageName $url "$toolsPath" $url "nssm-$version\$specificFolder"
+Set-Content -Path ("$toolsPath\nssm-$version\$folderToIgnore\nssm.exe.ignore") -Value $null
